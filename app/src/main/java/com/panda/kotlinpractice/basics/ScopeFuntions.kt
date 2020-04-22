@@ -12,7 +12,7 @@ fun main() {
 
     //Use of "let" and "also" start
 
-    var numbers = mutableListOf<String>("one","two","three","four")
+    val numbers = mutableListOf<String>("one","two","three","four")
     numbers.map { it.length }
             .also { // also can just be used to print the result in the intermediate state without breaking the chain
                 // it can be used for debuging and logging
