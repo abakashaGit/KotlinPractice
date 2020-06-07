@@ -10,25 +10,36 @@ import android.widget.ImageView
 */
 
 class Candidate {
-    var skills : String = "null"
+    var skills : String = ""
 
     fun printMySkills() {
-        print(skills)
+        println(skills)
+    }
+    fun addSkill(newSkill:String){
+        skills = skills+ " " +newSkill
     }
 }
 
 fun main(args: Array<String>) {
-    var  a1 = Candidate()
-    a1.skills = "JAVA"
-    //a1.printMySkills()
+//    var  a1 = Candidate()
+//    a1.skills = "JAVA"
+//    //a1.printMySkills()
+//
+//    var  a2 = Candidate()
+//    a2.skills = "SQL"
+//    //a2.printMySkills()
+//
+//    var  a3 = Candidate()
+//    a3.skills = a1.addMySkills(a2) // here addMySkills is an extended function mentioned bellow
+//    a3.printMySkills()
+    val can = Candidate()
+    can.addDefaultSkills()
+    can.printMySkills()
 
-    var  a2 = Candidate()
-    a2.skills = "SQL"
-    //a2.printMySkills()
+}
 
-    var  a3 = Candidate()
-    a3.skills = a1.addMySkills(a2) // here addMySkills is an extended function mentioned bellow
-    a3.printMySkills()
+fun Candidate.addDefaultSkills(){
+    this.skills = this.skills + " Java, Kotlin, Android, JSON, XML "
 }
 
 fun Candidate.addMySkills(c :Candidate) :String{

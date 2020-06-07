@@ -7,10 +7,19 @@ class Person(val first_name:String,val last_name:String){
 
 
 }
+class Person1() {
+    var name: String = "Abcd"
+    var contactNumber: String = "1234567890"
+    var address: String = "xyz"
+    fun displayInfo()  = print("\n Name: $name\n " +
+            "Contact Number: $contactNumber\n " +
+            "Address: $address")
+
+}
 
 fun main() {
 
-    //Use of "let" and "also" start
+    //Use of "let" and "also"
 
     val numbers = mutableListOf<String>("one","two","three","four")
     numbers.map { it.length }

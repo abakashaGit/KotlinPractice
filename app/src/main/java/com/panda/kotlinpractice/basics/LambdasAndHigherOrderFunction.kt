@@ -24,6 +24,9 @@ fun main() {
 
     printTheString("Hello Lambda") // simply prints the string in the parameter, In Android we can use for Toast messages
 
+    val sum = { x: Int, y: Int -> x + y }
+    print(sum(2,3))
+
     //END of Lambda
 
     //HigherOrderFuntion
@@ -48,12 +51,14 @@ fun main() {
     val networkRequest = NetworkRequest()
     networkRequest.fetchData({
             value -> println(value)
-    },{
+    }, {
+
             value -> println(value)
     })
 
     //Here we will call returnMeAddFuntion to get the add funtion
-    val add_funtion = networkRequest.returnMeAddFuntion()
+    val calculater = Calculator()
+    val add_funtion = calculater.returnMeAddFuntion()
     val output = add_funtion(6,5)
     println("calling the returned function $output")
 
@@ -90,6 +95,9 @@ class NetworkRequest{
         return Random.nextInt(1,3) // assume if 1 is success and 2 is failure
     }
 
+}
+
+class Calculator{
     fun returnMeAddFuntion():((Int,Int) ->Int){
         return ::add
     }

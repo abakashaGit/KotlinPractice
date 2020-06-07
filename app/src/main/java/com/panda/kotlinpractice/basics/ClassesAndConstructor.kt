@@ -1,7 +1,7 @@
 package com.panda.kotlinpractice.basics
 
 fun main() {
-//    var student = Student("Abakasha") // for creating object we dont need to use new keyword
+    var student = Student("Abakasha") // for creating object we dont need to use new keyword
 //    println(student.sName)
 //    println(student.sAddress)
     var user = User("Abakas",29)

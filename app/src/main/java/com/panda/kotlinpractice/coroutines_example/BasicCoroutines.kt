@@ -8,7 +8,7 @@ import kotlinx.coroutines.*
 
 class BasicCoroutines : AppCompatActivity() {
 
-    val JOB_TIME_OUT = 100L
+    val JOB_TIME_OUT = 1000L
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,9 +29,84 @@ class BasicCoroutines : AppCompatActivity() {
                - launch - is like a builder for the coroutine,
              */
 
+//            CoroutineScope(Dispatchers.IO).launch {
+//                fakeApiRequestWithTimeOut()
+//            }
+
+            /*
+             - make parallel request in coroutine there are basically two ways
+             - 1 is making job object.
+             - 2 is using "async" and "await()"
+             */
+//            CoroutineScope(Dispatchers.IO).launch { // Parent job
+//
+//                val startTime = System.currentTimeMillis()
+//                    var job1 = launch { // children job
+//                        val time1 = measureTimeMillis {
+//                            getResult1FromApi()
+//                        }
+//                        logThread("time taken $time1")
+//
+//                    }
+//                    var job2 = launch {
+//                        val time2= measureTimeMillis {
+//                            getResult2FromApi()
+//                        }
+//                        logThread("time taken $time2")
+//                    }
+//
+//
+//                logThread("total time taken by two ${System.currentTimeMillis() - startTime}")// time taked is 6015
+//
+//            }
             CoroutineScope(Dispatchers.IO).launch {
-                fakeApiRequestWithTimeOut()
+                getResult1FromApi()
+                getResult2FromApi()
+            } // this will execute one by one taking a+b time
+
+//            CoroutineScope(Dispatchers.IO).launch {
+//
+//                val startTime = System.currentTimeMillis()
+//                val totalTime = measureTimeMillis {
+//                    val result1: Deferred<String> = async {
+//                        getResult1FromApi()
+//                    }
+//                    val result2: Deferred<String> = async {
+//                        getResult2FromApi()
+//                    }
+//
+//                    setTextOnMainThread(result1.await()) // await() will wait till the job finishes
+//                    setTextOnMainThread(result2.await())
+//                }
+//
+//                logThread("start time $startTime")
+//                logThread("total time taken by two ${totalTime}") // as parallel run the time taken is 5064L which is alsomt same as result1 time taken
+//
+//            }
+            /*
+             - for sequencial execution of the jobs where one job depends on the result of other job
+             - for this we can use async await
+             */
+            CoroutineScope(Dispatchers.IO).launch {
+
+                val result1 = async {
+                    getResult1FromApi()
+                }.await()
+                val restult2 = async {
+                    try {
+                        requestApiWithResult1(result1) // passing the result1 as parameter.
+                    }catch (e:CancellationException){
+                        e.message
+                    }
+
+                }.await()
+
+                logThread(restult2.toString())
+            runBlocking { // it will block all the coroutine till it ends.
+
             }
+            }
+
 
         }
     }
@@ -70,14 +145,22 @@ class BasicCoroutines : AppCompatActivity() {
 
     private suspend fun getResult1FromApi(): String {
         logThread("getResult1FromApi")
-        delay(1000) // Does not block thread. Just suspends the coroutine inside the thread
-        return "Result #1"
+        delay(5000) // Does not block thread. Just suspends the coroutine inside the thread
+        return "Resul"
     }
 
     private suspend fun getResult2FromApi(): String {
         logThread("getResult2FromApi")
         delay(1000)
         return "Result #2"
+    }
+    private suspend fun requestApiWithResult1(result:String): String {
+        logThread("requestApiWithResult1")
+        delay(1000)
+        if (result.equals("Result #1")){
+            return "Result #2"
+        }
+        throw CancellationException("Wrong result1")
     }
 
     private fun logThread(methodName: String){
