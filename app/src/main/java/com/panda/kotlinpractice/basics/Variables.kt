@@ -1,9 +1,11 @@
 package com.panda.kotlinpractice.basics
 
 lateinit var var_lateinit:String //late init variables are initialised latter
+const val name_con:String = "const_name"
 
 fun main() {
 
+    val x = returnValue()
     val name = "hello"
     print(name)
     // name = null // val can not be reassigned.
@@ -25,6 +27,8 @@ fun main() {
 
     println("\n"+ var_lateinit)
 
+}
 
-
+fun returnValue():Int{
+    return 5
 }

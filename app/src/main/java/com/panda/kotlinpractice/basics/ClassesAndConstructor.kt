@@ -6,7 +6,6 @@ fun main() {
 //    println(student.sAddress)
     var user = User("Abakas",29)
     user.show()
-
     var user1 = User("smita") // creating object with just one parameter the second will be default
     user1.show()                    // In this case if the default value is not set and you are calling with
                                     // one parameter then compile time error "No value for the parameter"
