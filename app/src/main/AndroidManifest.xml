@@ -9,9 +9,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".coroutines_example.HandlingCoroutineJob"></activity>
+<!--        <activity android:name=".jetpack.databinding.ActivityTwoWayBinding"/>-->
+         <activity android:name=".jetpack.viewmodel.MainActivityVM"/>
+        <activity android:name=".jetpack.databinding.DataBindingActivity" />
+        <activity android:name=".coroutines_example.HandlingCoroutineJob" />
         <activity android:name=".coroutines_example.BasicCoroutines" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".jetpack.databinding.ActivityTwoWayBinding">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
