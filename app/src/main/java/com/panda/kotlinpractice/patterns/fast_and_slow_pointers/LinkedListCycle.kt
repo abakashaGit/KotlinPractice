@@ -18,7 +18,7 @@ in it or not.
 
 class ListNode(val value: Int,var next:ListNode?=null) // this is representation of the LinkedList
 
-internal object LinkedListCycle {
+ private object LinkedListCycle {
     fun hasCycle(head: ListNode?): Boolean {
         var slow = head
         var fast = head

@@ -28,6 +28,7 @@ class HandlingCoroutineJob : AppCompatActivity() {
 
             job_progress.startOrStopProgress(job)
         }
+
     }
 
     fun ProgressBar.startOrStopProgress(job:Job){
