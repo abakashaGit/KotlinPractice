@@ -33,8 +33,16 @@ fun main() {
 //
 //    var myIphone: Mobile = Mobile.Builder(3, 108).create()
 //    println("os of object is ${myIphone.ram}")
-    var food =FoodOrder.Builder().build()
+    val food =FoodOrder.Builder().build()
     print(" bread ${food.bread} condiment ${food.condiments} meat ${food.meat} fish ${food.fish}")
+
+    val food1 =FoodOrder.Builder().apply {
+        bread = "thin crust"
+        condiments= " something"
+        meat = "red"
+        fish = "rohu"
+    }.build()
+    print(" new bread ${food1.bread} condiment ${food1.condiments} meat ${food1.meat} fish ${food1.fish}")
 
 }
 
