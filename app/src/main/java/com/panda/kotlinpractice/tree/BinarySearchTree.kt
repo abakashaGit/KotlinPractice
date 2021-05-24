@@ -2,8 +2,12 @@ package com.panda.kotlinpractice.tree
 
 import java.util.*
 
-//date class to represent one node.
-data class Node(var value: Int, var left: Node?, var right: Node?)
+
+class Node(
+    var key: Int,
+    var left: Node? = null,
+    var right: Node? = null
+)
 
 class BinarySearchTree(var root: Node? = null) {
 
@@ -13,7 +17,7 @@ class BinarySearchTree(var root: Node? = null) {
 
     /* A recursive function to
        insert a new key in BST */
-    fun insertRec(root: Node?, key: Int): Node {
+    private fun insertRec(root: Node?, key: Int): Node {
 
         /* If the tree is empty,
            return a new node */
@@ -24,9 +28,9 @@ class BinarySearchTree(var root: Node? = null) {
         }
 
         /* Otherwise, recur down the tree */
-        if (key < root.value)
+        if (key < root.key)
             root.left = insertRec(root.left, key)
-        else if (key > root.value)
+        else if (key > root.key)
             root.right = insertRec(root.right, key)
 
 
@@ -39,7 +43,7 @@ class BinarySearchTree(var root: Node? = null) {
         while (current.left != null) {
             current = current.left!!
         }
-        println("the minimum value is ${current.value}")
+        println("the minimum value is ${current.key}")
     }
 
     fun findMax(root: Node) {
@@ -47,7 +51,7 @@ class BinarySearchTree(var root: Node? = null) {
         while (current.right != null) {
             current = current.right!!
         }
-        println("max value is ${current.value}")
+        println("max value is ${current.key}")
     }
 
     fun findHeight(root: Node?): Int {
@@ -62,7 +66,7 @@ class BinarySearchTree(var root: Node? = null) {
         println("Printing level order ")
         while (!levelQueue.isEmpty()) {
             val current: Node = levelQueue.peek()
-            print(" ${current.value}")
+            print(" ${current.key}")
             levelQueue.let {
                 current.left?.let { levelQueue.offer(it) }
                 current.right?.let { levelQueue.offer(it) }
@@ -84,7 +88,7 @@ class BinarySearchTree(var root: Node? = null) {
     }
     //Depth first traverse
     fun preOrderTraverse(root: Node){
-        print(" ${root.value}")
+        print(" ${root.key}")
         root.left?.run { preOrderTraverse(this) }
         root.right?.run { preOrderTraverse(this) }
     }
@@ -92,12 +96,16 @@ class BinarySearchTree(var root: Node? = null) {
 //        root.left?.run { preOrderTraverse(this) }
 //        print(" ${root.value}")
 //        root.right?.run { preOrderTraverse(this) }
-        
+
+        root?.left?.let { preOrderTraverse(it) }
+        print(" ${root?.key}")
+        root?.right?.let { preOrderTraverse(it) }
+
     }
     fun postOrderTraverse(root: Node){
         root.left?.run { preOrderTraverse(this) }
         root.right?.run { preOrderTraverse(this) }
-        print(" ${root.value}")
+        print(" ${root.key}")
     }
 
 }
@@ -105,13 +113,35 @@ class BinarySearchTree(var root: Node? = null) {
 fun main() {
     val myTree = BinarySearchTree()
 
-    myTree.insert(50);
-    myTree.insert(30);
-    myTree.insert(20);
-    myTree.insert(40);
-    myTree.insert(70);
-    myTree.insert(60);
-    myTree.insert(80);
+//    myTree.apply {
+//
+//        insert(50)
+//
+//        insert(30)
+//        insert(70)
+//
+//        insert(20)
+//        insert(40)
+//        insert(60)
+//        insert(80)
+//
+//        insert(10)
+//
+//    }
+
+    val root = Node(12)
+    root.left = Node(7)
+    root.right = Node(1)
+    root.left!!.left = Node(9)
+    root.right!!.left = Node(10)
+    root.right!!.right = Node(5)
+    /*
+        50
+      30    70
+    20  40 60  80
+  10
+ */
+
     myTree.root?.let { myTree.findMin(it) } ?: println("Tree is empty")
     myTree.root?.let { myTree.findMax(it) } ?: println("Tree is empty")
     //Null check will be done here wiht Elvis operator
@@ -129,8 +159,3 @@ fun main() {
     print(" PostOrderTraversal = ")
     myTree.root?.let { myTree.postOrderTraverse(it) }
 }
-/*
-        50
-      30    70
-    20  40 60  80
- */
