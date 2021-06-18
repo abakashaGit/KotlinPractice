@@ -1,4 +1,4 @@
-package com.panda.kotlinpractice.patterns.binary_st;
+package com.panda.kotlinpractice.patterns.binary_tree_bfs;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
